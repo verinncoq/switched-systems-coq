@@ -1,0 +1,8 @@
+# Compiled Coq files
+target/*
+
+# Coq caches
+.*.cacheleo/in_decoded
+leo/in_coq.v
+leo/in_decoded
+.*.cache
