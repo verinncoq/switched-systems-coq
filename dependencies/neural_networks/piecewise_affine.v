@@ -1,6 +1,6 @@
 From Coq Require Import Reals List Arith Lia Lra.
 From Coquelicot Require Import Coquelicot.
-From CoqE2EAI Require Import matrix_extensions.
+From CoqSwitchedSystems Require Import matrix_extensions.
 Import ListNotations.
 Import MatrixNotations.
 

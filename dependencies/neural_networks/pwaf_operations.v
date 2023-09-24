@@ -3,7 +3,7 @@ Import ListNotations.
 
 From Coquelicot Require Import Coquelicot.
 
-From CoqE2EAI Require Import matrix_extensions piecewise_affine.
+From CoqSwitchedSystems Require Import matrix_extensions piecewise_affine.
 Import MatrixNotations.
 
 Open Scope list_scope.

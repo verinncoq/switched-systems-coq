@@ -1,7 +1,7 @@
 From Coq Require Import List Reals Lia Lra.
 Import ListNotations.
 From Coquelicot Require Import Coquelicot.
-From CoqE2EAI Require Import matrix_extensions pendnet neural_networks switched_systems.
+From CoqSwitchedSystems Require Import matrix_extensions pendnet neural_networks switched_systems.
 
 Open Scope R_scope.
 

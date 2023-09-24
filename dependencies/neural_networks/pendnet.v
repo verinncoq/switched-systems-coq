@@ -4,10 +4,10 @@
 
     From Coq Require Import Reals.
     From Coquelicot Require Import Coquelicot.
-    From CoqE2EAI Require Import piecewise_affine neuron_functions matrix_extensions.
-    From CoqE2EAI Require Import neural_networks.
-    From CoqE2EAI Require Import string_to_number.
-(*  From CoqE2EAI Require Import transpose_mult_matrix. *)
+    From CoqSwitchedSystems Require Import piecewise_affine neuron_functions matrix_extensions.
+    From CoqSwitchedSystems Require Import neural_networks.
+    From CoqSwitchedSystems Require Import string_to_number.
+(*  From CoqSwitchedSystems Require Import transpose_mult_matrix. *)
   
   Open Scope nat_scope.
 
