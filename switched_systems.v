@@ -1103,7 +1103,7 @@ Proof.
       - right. apply Rle_ge. apply le_INR. lia.
 Qed.
 
-Theorem example_limit_cycle:
+Theorem example_trajectory_cycle:
   forall i,
     let traj_t := trajectory example_switched_system 
           initial_point example_mode_solver in
