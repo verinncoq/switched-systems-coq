@@ -53,7 +53,7 @@ Proof.
     intros i Hi.
     unfold coeff_Tn.
     assert (Hi2: i = S (pred i)). {
-        apply S_pred_pos. lia.
+        rewrite (Nat.lt_succ_pred 0). reflexivity. lia.
     }
     rewrite Hi2.
     induction it.
@@ -395,7 +395,7 @@ Proof.
     unfold null_vector.
     unfold mk_colvec.
     rewrite <- zero_is_0.
-    rewrite <- (sum_n_m_const_zero (G:=R_AbelianGroup) 0 (Nat.pred dim)) at 1.
+    rewrite <- (sum_n_m_const_zero (G:=R_AbelianMonoid) 0 (Nat.pred dim)) at 1.
     apply sum_n_m_ext_loc.
     intros n Hn.
     destruct Hn.
@@ -715,7 +715,7 @@ Proof.
         rewrite coeff_mat_default; try lia.
         rewrite Rmult_0_l. rewrite Nat.add_0_l at 1.
         rewrite <- zero_is_0.
-        rewrite <- (sum_n_m_const_zero (G:=R_AbelianGroup) 0 (d2)).
+        rewrite <- (sum_n_m_const_zero (G:=R_AbelianMonoid) 0 (d2)).
         apply sum_n_ext_loc.
         intros n Hn.
         unfold transpose.
@@ -742,7 +742,7 @@ Proof.
         unfold mk_colvec.
         repeat (rewrite coeff_mat_bij; try lia).
         rewrite Nat.add_sub.
-        apply le_lt_n_Sm in Hn.
+        rewrite <- Nat.lt_succ_r in Hn.
         rewrite <- Nat.ltb_lt in Hn.
         rewrite Hn.
         unfold coeff_colvec.
@@ -766,7 +766,7 @@ Proof.
           repeat (rewrite coeff_mat_bij; try lia).
           rewrite <- Nat.add_succ_l.
           rewrite Nat.add_sub.
-          apply le_lt_n_Sm in Hn.
+          rewrite <- Nat.lt_succ_r in Hn.
           rewrite <- Nat.ltb_lt in Hn.
           rewrite Hn.
           unfold coeff_colvec.
@@ -774,7 +774,7 @@ Proof.
           reflexivity.
         * simpl.
           rewrite <- zero_is_0.
-          rewrite <- (sum_n_m_const_zero (G:=R_AbelianGroup) (S d1) (d1 + S d2)) at 1.
+          rewrite <- (sum_n_m_const_zero (G:=R_AbelianMonoid) (S d1) (d1 + S d2)) at 1.
           apply sum_n_m_ext_loc.
           intros k Hk.
           unfold transpose.
@@ -830,7 +830,7 @@ Proof.
         rewrite coeff_mat_default; try lia.
         rewrite Rmult_0_l. rewrite Nat.add_0_r at 1.
         rewrite <- zero_is_0.
-        rewrite <- (sum_n_m_const_zero (G:=R_AbelianGroup) 0 (d1)).
+        rewrite <- (sum_n_m_const_zero (G:=R_AbelianMonoid) 0 (d1)).
         apply sum_n_ext_loc.
         intros n Hn.
         unfold transpose.
@@ -838,7 +838,7 @@ Proof.
         unfold mk_colvec.
         repeat (rewrite coeff_mat_bij; try lia).
         rewrite Nat.add_sub.
-        apply le_lt_n_Sm in Hn.
+        rewrite <- Nat.lt_succ_r in Hn.
         rewrite <- Nat.ltb_lt in Hn.
         rewrite Hn.
         apply Rmult_0_l.
@@ -852,7 +852,7 @@ Proof.
         apply f_equal2_plus_R.
         * simpl.
           rewrite <- zero_is_0.
-          rewrite <- (sum_n_m_const_zero (G:=R_AbelianGroup) 0 d1) at 1.
+          rewrite <- (sum_n_m_const_zero (G:=R_AbelianMonoid) 0 d1) at 1.
           apply sum_n_m_ext_loc.
           intros k Hk.
           unfold transpose.
@@ -866,7 +866,7 @@ Proof.
           rewrite <- Nat.add_succ_l.
           rewrite Nat.add_sub.
           destruct Hk.
-          apply le_lt_n_Sm in H0.
+          rewrite <- Nat.lt_succ_r in H0.
           rewrite <- Nat.ltb_lt in H0.
           rewrite H0.
           rewrite Rmult_0_l.
@@ -984,9 +984,9 @@ Proof.
         rewrite coeff_mat_bij; try lia.
         unfold sum_n.
         rewrite <- zero_is_0.
-        rewrite <- (sum_n_m_const_zero (G:=R_AbelianGroup) 0 (pred (n1 + n2))).
+        rewrite <- (sum_n_m_const_zero (G:=R_AbelianMonoid) 0 (pred (n1 + n2))).
         destruct (le_gt_dec (n1 + n2) 0).
-        - apply le_n_0_eq in l.
+        - rewrite Nat.le_0_r in l. symmetry in l.
           repeat rewrite <- l at 1. simpl. 
           repeat rewrite sum_n_n.
           rewrite (coeff_mat_default _ _ _ _ _ 0 0); try lia.
@@ -1033,7 +1033,7 @@ Proof.
         induction n1.
         * simpl in Hk.
           destruct Hk as [Hk1 Hk2].
-          apply le_n_0_eq in Hk2.
+          rewrite Nat.le_0_r in Hk2. symmetry in Hk2.
           rewrite <- Hk2. simpl.
           induction n2.
           * rewrite coeff_mat_default; try lia.
@@ -1054,7 +1054,7 @@ Proof.
         unfold mk_colvec. unfold coeff_colvec.
         rewrite <- zero_is_0.
         rewrite <- (sum_n_m_const_zero 
-            (G:=R_AbelianGroup) (S (pred n1)) (pred (n1 + n2))).
+            (G:=R_AbelianMonoid) (S (pred n1)) (pred (n1 + n2))).
         apply sum_n_m_ext_loc.
         intros k Hk.
         rewrite coeff_mat_bij; try lia.
@@ -1077,11 +1077,11 @@ Proof.
             rewrite coeff_mat_bij; try lia.
             unfold sum_n.
             rewrite <- zero_is_0.
-            rewrite <- (sum_n_m_const_zero (G:=R_AbelianGroup) 0 (pred (n1 + n2))).
+            rewrite <- (sum_n_m_const_zero (G:=R_AbelianMonoid) 0 (pred (n1 + n2))).
             apply sum_n_m_ext_loc.
             intros n Hn.
             destruct (le_gt_dec (n1 + n2) 0).
-            - apply le_n_0_eq in l.
+            - rewrite Nat.le_0_r in l. symmetry in l.
               rewrite (coeff_mat_default _ _ _ _ _ n 0); try lia.
               apply Rmult_0_r.
             - unfold extend_colvec_at_bottom.
@@ -1125,14 +1125,14 @@ Proof.
           apply f_equal2_plus_R.
           - rewrite <- zero_is_0.
             rewrite <- (sum_n_m_const_zero 
-              (G:=R_AbelianGroup) 0 (pred (S n1))).
+              (G:=R_AbelianMonoid) 0 (pred (S n1))).
             apply sum_n_m_ext_loc.
             intros k Hk.
             rewrite coeff_mat_bij; try lia.
             rewrite Hib.
             destruct Hk.
             simpl in H0.
-            apply le_lt_n_Sm in H0.
+            rewrite <- Nat.lt_succ_r in H0.
             rewrite <- Nat.ltb_lt in H0.
             rewrite H0.
             rewrite sum_n_m_const_zero.
@@ -1202,7 +1202,7 @@ Proof.
         repeat (rewrite coeff_mat_bij; try lia).
         rewrite Nat.add_sub.
         destruct Hk as [Hk1 Hk2].
-        apply le_lt_n_Sm in Hk2.
+        rewrite <- Nat.lt_succ_r in Hk2.
         rewrite <- Nat.ltb_lt in Hk2.
         rewrite Hk2. repeat rewrite Rplus_0_r.
         reflexivity.
@@ -1219,7 +1219,7 @@ Proof.
           unfold mk_colvec.
           repeat (rewrite coeff_mat_bij; try lia).
           rewrite Nat.add_sub.
-          apply le_lt_n_Sm in Hn.
+          rewrite <- Nat.lt_succ_r in Hn.
           rewrite <- Nat.ltb_lt in Hn.
           rewrite Hn.
           repeat rewrite Rplus_0_r. 
