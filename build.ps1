@@ -11,4 +11,5 @@ coqc -w none -R target CoqSwitchedSystems dependencies\neural_networks\pendnet.v
 
 #Compile project
 coqc -w none -R target CoqSwitchedSystems switched_systems.v -o target\switched_systems.vo
+coqc -w none -R target CoqSwitchedSystems air_filter.v -o target\air_filter.vo
 coqc -w none -R target CoqSwitchedSystems inverted_pendulum.v -o target\inverted_pendulum.vo

@@ -1,4 +1,4 @@
-From Coq Require Import Reals List Sorting Lia Lra.
+From Coq Require Import Reals List Lia Lra.
 Import ListNotations.
 From Coquelicot Require Import Coquelicot.
 From CoqSwitchedSystems Require Import matrix_extensions.
