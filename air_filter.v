@@ -89,7 +89,6 @@ Definition air_filter_mode_solver_implementation
 Hypothesis (Hin_gt_0: Inflow > 0).
 Hypothesis (Hout_gt_0: Outflow > 0).
 Hypothesis (Hfiltered_gt0: Filtered > 0).
-Hypothesis (Hfilter_useful: Inflow / (Outflow + Filtered) <= Target).
 
 Lemma integration_air_filter_model:
     forall outflow t t_from x_t_from,
@@ -200,6 +199,8 @@ Qed.
 
 Definition air_filter_mode_solver: ModeSolver air_filter_switched_system := 
   exist _ air_filter_mode_solver_implementation air_filter_mode_solver_correct.
+
+Hypothesis (Hfilter_useful: Inflow / (Outflow + Filtered) <= Target).
 
 Definition in_invariant_region (x: colvec 1) : Prop :=
     toReal x <= toReal (mode_off_solution period 0 (toColvec Target)).
@@ -393,7 +394,7 @@ Proof.
         - right. apply Rle_ge. apply Rmult_le_compat_l; try lra. apply le_INR. lia.
 Qed.
 
-Lemma air_filter_switches_invariant_specialization:
+Lemma air_filter_switches_invariant:
     forall i C_init,
     let filter_traj_t := 
         trajectory air_filter_switched_system C_init 
@@ -626,14 +627,14 @@ Proof.
         * apply rounding_helper2.
         * apply Htraj.
         * rewrite HeqC_prev.
-          apply air_filter_switches_invariant_specialization.
+          apply air_filter_switches_invariant.
           apply Hobserved.
           apply Hinit.  
       - rewrite switches_until_helper; try lra.
         rewrite (trajectory_induction_lemma 
             (period * INR (Z.abs_nat (floor1 (t / period))))); 
           try apply air_filter_induction_support.
-        pose proof (air_filter_switches_invariant_specialization 
+        pose proof (air_filter_switches_invariant 
             (Z.abs_nat (floor1 (t / period)))
             C_init Hobserved Hinit) as Hinvariant.
         remember (trajectory air_filter_switched_system _ _ _) as C_prev.
